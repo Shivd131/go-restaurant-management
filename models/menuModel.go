@@ -1,14 +1,18 @@
-package routes
+package models
 
 import (
-	controller "go-restaurant-management/controllers"
+	"time"
 
-	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func MenuRoutes(incomingRoutes *gin.Engine) {
-	incomingRoutes.GET("/menus", controller.GetMenus())
-	incomingRoutes.GET("/menus/:menu_id", controller.GetMenu())
-	incomingRoutes.POST("/menus", controller.CreateMenu())
-	incomingRoutes.PATCH("/menus/:menu_id", controller.UpdateMenu())
+type Menu struct {
+	ID         primitive.ObjectID `bson:"_id"`
+	Name       string             `json:"name" validate:"required"`
+	Category   string             `json:"category" validate:"required"`
+	Start_Date *time.Time         `json:"start_date"`
+	End_Date   *time.Time         `json:"end_date"`
+	Created_at time.Time          `json:"created_at"`
+	Updated_at time.Time          `json:"updated_at"`
+	Menu_id    string             `json:"food_id"`
 }
